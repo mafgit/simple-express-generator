@@ -17,13 +17,13 @@ Flags:
     default --> -f "models controllers routes"
     NOTE: Default folders would be overwritten by your arguments, so be sure to write them again.
 
-3) ${'-d'.green} or ${
+4) ${'-d'.green} or ${
     '--dependencies'.green
   } (It is followed by the npm dependencies which must all be wrapped inside one pair of "double quotes")
     default --> -d "express"
     NOTE: Default packages would be overwritten by your arguments, so be sure to write them again.
 
-4) ${'-dd'.green} or ${
+5) ${'-dd'.green} or ${
     '--devDependencies'.green
   } (It is almost the same as -d but it installs dependencies as dev dependencies.)
     default --> -dd "nodemon dotenv"

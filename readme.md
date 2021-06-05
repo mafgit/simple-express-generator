@@ -1,0 +1,39 @@
+# Simple Express Generator
+
+> Generates a simple express server and lets you decide the folders and dependencies.
+
+## Flags:
+
+### '-p' or '--path'
+
+> Where to set up express server
+
+**Default:** *-p ./backend/*
+
+### '-h' or '--help'
+
+> See the list of available commands
+
+### '-f' or '--folders'
+
+> Folders that you want to create. All arguments must be in a single pair of "double quotes".
+
+**Default:** *-f "models controllers routes"*
+
+**NOTE:** *Default folders would be overwritten by your arguments, so be sure to write them again.*
+
+### '-d' or '--dependencies'
+
+   > It is followed by the npm dependencies which must all be wrapped inside one pair of "double quotes"
+
+**Default:** *-d "express"*
+
+**NOTE:** *Default packages would be overwritten by your arguments, so be sure to write them again.*
+
+### '-dd' or '--devDependencies'
+
+   > It is almost the same as -d but it installs dependencies as dev dependencies.
+
+**Default:** *-dd "nodemon dotenv"*
+
+**NOTE:** *Default packages would be overwritten by your arguments, so be sure to write them again.*

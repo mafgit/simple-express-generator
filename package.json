@@ -1,6 +1,6 @@
 {
   "name": "simple-express-generator",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "main": "index.js",
   "bin": {
     "simple-express-generator": "index.js"
