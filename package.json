@@ -2,8 +2,11 @@
   "name": "simple-express-generator",
   "version": "1.0.1",
   "main": "index.js",
+  "bin": {
+    "simple-express-generator": "index.js"
+  },
   "scripts": {
-    "simple-express-generator": "node ."
+    "simple-express-generator": "simple-express-generator"
   },
   "keywords": [],
   "author": "maf",

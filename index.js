@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const fs = require('fs')
 const { helpMessage, indexContent } = require('./textContent')
 require('colors')
