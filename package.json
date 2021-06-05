@@ -1,8 +1,10 @@
 {
   "name": "simple-express-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "simple-express-generator": "node ."
+  },
   "keywords": [],
   "author": "maf",
   "license": "ISC",
