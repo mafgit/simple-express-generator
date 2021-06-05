@@ -1,0 +1,14 @@
+{
+  "name": "simple-express-generator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "maf",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0"
+  },
+  "devDependencies": {},
+  "description": "A simple express server generator."
+}
