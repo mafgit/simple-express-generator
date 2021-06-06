@@ -11,6 +11,10 @@
     "commit-modified": "git add . && git commit -m \"Minor file changes\"",
     "push-publish": "git push && npm publish"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mafgit/simple-express-generator"
+  },
   "keywords": [
     "generator",
     "express",
