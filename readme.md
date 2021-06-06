@@ -5,6 +5,20 @@
 
 > Generates a simple express server and lets you decide the folders and dependencies.
 
+## Usage:
+
+#### Without Installation:
+
+- `npx simple-express-generator`
+
+#### With Installation:
+
+- `npm i simple-express-generator -g`
+  
+   Then
+
+- `simple-express-generator`
+
 ## Flags:
 
 ### '-p' or '--path'

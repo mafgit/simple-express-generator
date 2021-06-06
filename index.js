@@ -27,25 +27,25 @@ const createBackend = (
   const filesToCreate = ['index.js', '.env', '.gitignore']
 
   return new Promise((res, rej) => {
+    logLoading('Processing')
     if (!fs.existsSync(rootFolder)) {
-      logLoading('Processing ...')
       fs.mkdirSync(rootFolder)
     }
 
     const files = fs.readdirSync(rootFolder)
     if (files.length > 0) return rej('Root folder must be empty'.red)
 
-    logLoading('Installing Dependencies ...')
+    logLoading('Installing Dependencies')
     execSync(
       `cd ${rootFolder} && npm init -y && npm i ${dependencies.join(
         ' '
       )} && npm i ${devDependencies.join(' ')} -D`
     )
 
-    logLoading('Creating Folders ...')
+    logLoading('Creating Folders')
     folders.forEach((folder) => fs.mkdirSync(`${rootFolder}${folder}`))
 
-    logLoading('Creating Files ...')
+    logLoading('Creating Files')
     filesToCreate.forEach((file) =>
       fs.appendFileSync(
         `${rootFolder}${file}`,
@@ -60,8 +60,8 @@ const createBackend = (
     const strSuccess = `Success!`.green
     const str2 = `Your backend setup is complete`
     const str3 = `Run the following command:`
-    let pathStr = ['./', '.', '/'].includes(rootFolder)
-      ? `cd ${rootFolder} `.blue
+    let pathStr = !['./', '.', '/'].includes(rootFolder)
+      ? `cd ${rootFolder} && `.blue
       : ''
 
     const strCommands = pathStr + `node index.js`.blue

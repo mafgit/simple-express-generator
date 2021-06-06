@@ -1,6 +1,6 @@
 {
   "name": "simple-express-generator",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "main": "index.js",
   "bin": {
     "simple-express-generator": "index.js"
@@ -8,7 +8,17 @@
   "scripts": {
     "simple-express-generator": "simple-express-generator"
   },
-  "keywords": [],
+  "keywords": [
+    "generator",
+    "express",
+    "server",
+    "js",
+    "node",
+    "nodejs",
+    "npm",
+    "npx",
+    "backend"
+  ],
   "author": "maf",
   "license": "ISC",
   "dependencies": {
