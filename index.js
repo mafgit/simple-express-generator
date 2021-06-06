@@ -60,7 +60,11 @@ const createBackend = (
     const strSuccess = `Success!`.green
     const str2 = `Your backend setup is complete`
     const str3 = `Run the following command:`
-    const strCommands = `cd ${rootFolder} && nodemon`.blue
+    let pathStr = ['./', '.', '/'].includes(rootFolder)
+      ? `cd ${rootFolder} `.blue
+      : ''
+
+    const strCommands = pathStr + `node index.js`.blue
 
     return res(`\n\n${strSuccess}\n\n${str2}\n\n${str3}\n\n${strCommands}\n\n`)
   })
