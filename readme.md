@@ -7,7 +7,7 @@
 
 ## Usage:
 
-#### Without Installation:
+#### Without Installation (Recommended):
 
 - `npx simple-express-generator`
 
