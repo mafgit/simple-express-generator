@@ -1,17 +1,12 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const { helpMessage, indexContent } = require('./textContent')
+const { execAsync, logErr, logLoading, successMsg } = require('./helpers')
 require('colors')
+const { exec } = require('child_process')
 
-const { execSync } = require('child_process')
-
-const logErr = (msg) => {
-  console.log(`\n(!) ${msg}\n`.red)
-}
-
-const logLoading = (msg) => {
-  console.log(`\n(...) ${msg}\n`.green)
-}
+// TODO: bash mkdir vs fs
+// TODO: Add ... functionality to args
 
 const createBackend = (
   path = './backend/',
@@ -26,25 +21,22 @@ const createBackend = (
 
   const filesToCreate = ['index.js', '.env', '.gitignore']
 
-  return new Promise((res, rej) => {
-    logLoading('Processing')
-    if (!fs.existsSync(rootFolder)) {
-      fs.mkdirSync(rootFolder)
-    }
+  logLoading('Processing')
+  // Checking whether the root folder exists
+  if (!fs.existsSync(rootFolder)) {
+    fs.mkdirSync(rootFolder)
+  }
 
+  return new Promise((resolve, reject) => {
+    // Checking whether its empty
     const files = fs.readdirSync(rootFolder)
-    if (files.length > 0) return rej('Root folder must be empty'.red)
+    if (files.length > 0) return reject('Root folder must be empty'.red)
 
-    logLoading('Installing Dependencies')
-    execSync(
-      `cd ${rootFolder} && npm init -y && npm i ${dependencies.join(
-        ' '
-      )} && npm i ${devDependencies.join(' ')} -D`
-    )
-
+    // Creating folders
     logLoading('Creating Folders')
     folders.forEach((folder) => fs.mkdirSync(`${rootFolder}${folder}`))
 
+    // Creating files
     logLoading('Creating Files')
     filesToCreate.forEach((file) =>
       fs.appendFileSync(
@@ -57,16 +49,21 @@ const createBackend = (
       )
     )
 
-    const strSuccess = `Success!`.green
-    const str2 = `Your backend setup is complete`
-    const str3 = `Run the following command:`
-    let pathStr = !['./', '.', '/'].includes(rootFolder)
-      ? `cd ${rootFolder} && `.blue
-      : ''
+    // Installing Dependencies
+    logLoading('Installing Dependencies')
+    console.time('Dependencies Installed In: '.green)
+    exec(`cd ${rootFolder} && npm init -y`, () =>
+      Promise.all([
+        execAsync(`cd ${rootFolder} && npm i ${dependencies.join(' ')}`),
+        execAsync(`cd ${rootFolder} && npm i ${devDependencies.join(' ')} -D`),
+      ])
+        .then(() => {
+          console.timeEnd('Dependencies Installed In: '.green)
 
-    const strCommands = pathStr + `node index.js`.blue
-
-    return res(`\n\n${strSuccess}\n\n${str2}\n\n${str3}\n\n${strCommands}\n\n`)
+          return resolve(successMsg(rootFolder))
+        })
+        .catch((err) => reject(err))
+    )
   })
 }
 
@@ -91,8 +88,12 @@ for (let i = 0; i < args.length; i += 2) {
   }
 }
 
+console.time('Simple Express App Generated In: '.green)
 createBackend(path, dependencies, devDependencies, folders)
-  .then((res) => console.log(res))
+  .then((res) => {
+    console.log(res)
+    console.timeEnd('Simple Express App Generated In: '.green)
+  })
   .catch((err) => {
     if (err) logErr(err)
   })
