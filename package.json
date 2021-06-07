@@ -1,6 +1,6 @@
 {
   "name": "simple-express-generator",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "index.js",
   "bin": {
     "simple-express-generator": "index.js"
@@ -28,9 +28,9 @@
   ],
   "author": "maf",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "colors": "^1.4.0"
   },
+  "devDependencies": {},
   "description": "A simple express server generator."
 }
