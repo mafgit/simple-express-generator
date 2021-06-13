@@ -1,16 +1,13 @@
-![logo](https://sdtimes.com/wp-content/uploads/2016/02/0211.sdt-express-short.png)
+![Logo](images/logo_rectangle.jpg)
 
-<!-- TODO: Change logo -->
+# Simple Express Server
 
-# Simple Express Server <small>1.1.3</small>
-
-<!-- Change version -->
-
-> Generates a simple express server and lets you decide folders, dependencies, etc.
+> 🔥 Generates an express server with just one command 🔥
 
 - Simple and lightweight
+- Generate folders and install dependencies with just one command
 - Allows configuration
 
-[Get Started](get-started.md)
-[Github Repository](https://github.com/mafgit/simple-express-generator)
-[NPM Package](https://www.npmjs.com/package/simple-express-generator)
+[ 📘 Get Started ](get-started.md)
+[ 🖤 Github ](https://github.com/mafgit/simple-express-generator)
+[ ❤️ NPM ](https://www.npmjs.com/package/simple-express-generator)

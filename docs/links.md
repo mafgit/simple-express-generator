@@ -1,5 +1,7 @@
 # Links
 
-[Github Repository](https://github.com/mafgit/simple-express-generator)
+[ 📘 Get Started ](get-started.md)
 
-[NPM Package](https://www.npmjs.com/package/simple-express-generator)
+[ 🖤 Github ](https://github.com/mafgit/simple-express-generator)
+
+[ ❤️ NPM ](https://www.npmjs.com/package/simple-express-generator)

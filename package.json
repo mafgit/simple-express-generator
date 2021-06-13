@@ -4,13 +4,12 @@
 	"version": "1.1.3",
 	"main": "index.js",
 	"bin": {
-		"simple-express-generator": "index.js"
+		"simple-express-generator": "./index.js"
 	},
 	"scripts": {
 		"simple-express-generator": "simple-express-generator",
-		"commit-bug": "git add . && git commit -m \"Bug fixes\"",
-		"commit-modified": "git add . && git commit -m \"Minor file changes\"",
-		"push-publish": "git push && npm publish"
+		"push-publish": "git push && npm publish",
+		"docs": "docsify serve docs"
 	},
 	"repository": {
 		"type": "git",
@@ -29,8 +28,15 @@
 	],
 	"author": "maf",
 	"license": "ISC",
+	"homepage": "https://mafgit.github.io/simple-express-generator/",
+	"bugs": {
+		"url": "https://github.com/mafgit/simple-express-generator/issues",
+		"email": "abdskinny@gmail.com"
+	},
 	"dependencies": {
 		"colors": "^1.4.0"
 	},
-	"devDependencies": {}
+	"devDependencies": {
+		"docsify-cli": "^4.4.3"
+	}
 }
