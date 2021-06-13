@@ -24,9 +24,11 @@
 
 > Specify the folders that you want to create, in a single pair of double quotes.
 
-**Flag** `-f or --folders `
+**Flag** `-f or --folders`
 
-**Default** `npx simple-express-generator -f "models controllers routes"`
+**Default** `"models controllers routes config"`
+
+**Example** `npx simple-express-generator -f "... tests"`
 
 **Note** Write `... ` in the beginning of the argument (be sure to give a space after three dots) to include the defaults in your argument, otherwise you will overwrite them.
 
@@ -36,7 +38,9 @@
 
 **Flag** `-d or --dependencies`
 
-**Default** `npx simple-express-generator -d "express"`
+**Default** `"express"`
+
+**Example** `npx simple-express-generator -d "... mongoose jsonwebtoken"`
 
 **Note** Write `... ` in the beginning of the argument (be sure to give a space after three dots) to include the defaults in your argument, otherwise you will overwrite them.
 
@@ -46,6 +50,8 @@
 
 **Flag** `-dd or --devDependencies`
 
-**Default** `npx simple-express-generator -dd "nodemon dotenv"`
+**Default** `"nodemon dotenv"`
+
+**Example** `npx simple-express-generator -dd "... jest"`
 
 **Note** Write `... ` in the beginning of the argument (be sure to give a space after three dots) to include the defaults in your argument, otherwise you will overwrite them.
