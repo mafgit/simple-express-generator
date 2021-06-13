@@ -35,8 +35,5 @@
 	},
 	"dependencies": {
 		"colors": "^1.4.0"
-	},
-	"devDependencies": {
-		"docsify-cli": "^4.4.3"
 	}
 }
