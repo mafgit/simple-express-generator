@@ -1,0 +1,3 @@
+- [:rocket: Get Started](get-started.md)
+- [⚙️ Configuration](configuration.md)
+- [🔗 Links](links.md)
