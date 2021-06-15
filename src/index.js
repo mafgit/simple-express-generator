@@ -1,11 +1,8 @@
 const { logErr, helpMessage } = require('./helpers')
 require('colors')
-const createBackend = require('./create_backend')
+const create_backend = require('./create_backend')
 
-let dependencies
-let devDependencies
-let folders
-let path
+const args_obj = {}
 
 const args = process.argv
 let run = true
@@ -16,19 +13,19 @@ for (let i = 0; i < args.length; i += 2) {
   if (flag === '-h' || flag === '--help') {
     console.log(helpMessage)
     run = false
-  } else if (flag === '-p' || flag === '--path') path = arg
+  } else if (flag === '-p' || flag === '--path') args_obj.path = arg
   else if (flag === '-d' || flag === '--dependencies') {
-    dependencies = arg.split(' ')
+    args_obj.dependencies = arg.split(' ')
   } else if (flag === '-dd' || flag === '--devDependencies') {
-    devDependencies = arg.split(' ')
+    args_obj.devDependencies = arg.split(' ')
   } else if (flag === '-f' || flag === '--folders') {
-    folders = arg.split(' ')
+    args_obj.folders = arg.split(' ')
   }
 }
 
 if (run === true) {
   console.time('Simple Express App Generated In: '.green)
-  createBackend(path, dependencies, devDependencies, folders)
+  create_backend(args_obj)
     .then((res) => {
       console.log(res)
       console.timeEnd('Simple Express App Generated In: '.green)
@@ -37,5 +34,3 @@ if (run === true) {
       if (err) logErr(err)
     })
 }
-
-// Webpack, shebang, tests

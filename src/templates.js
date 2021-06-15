@@ -1,7 +1,12 @@
 const { execSync } = require('child_process')
 const { writeFileSync, writeFile } = require('fs')
 
-export default (rootFolder, dependencies, devDependencies, folders) => {
+const create_templates = (
+  rootFolder,
+  dependencies,
+  devDependencies,
+  folders
+) => {
   return new Promise((resolve, reject) => {
     const deps = [...dependencies, ...devDependencies]
 
@@ -17,7 +22,6 @@ export default (rootFolder, dependencies, devDependencies, folders) => {
     // Other content
     let indexContent = ``
 
-    // TODO:check routes dir
     indexContent += `\nconst app = express()\napp.use(express.urlencoded({ extended: false }))\napp.use(express.json())\n${
       folders.includes('routes') ? "app.use(require('./routes/'))\n" : ''
     }`
@@ -67,3 +71,5 @@ module.exports = router`
     })
   })
 }
+
+module.exports = create_templates

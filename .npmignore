@@ -1,4 +1,8 @@
 /node_modules
 /tests
 /docs
+/src
 *.test.js
+*.spec.js
+.gitignore
+*.config.js

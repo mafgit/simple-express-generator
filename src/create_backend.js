@@ -1,14 +1,14 @@
 const { existsSync, mkdirSync, readdirSync, appendFileSync } = require('fs')
 const { logLoading, successMsg, installDependencies } = require('./helpers')
 const { exec, execSync } = require('child_process')
-const templates = require('./templates')
+const create_templates = require('./templates')
 
-const createBackend = (
+const create_backend = ({
   path = './backend/',
   dependencies = [], // express is already there
   devDependencies = ['dotenv', 'nodemon'],
-  folders = ['models', 'controllers', 'routes', 'config']
-) => {
+  folders = ['models', 'controllers', 'routes', 'config'],
+}) => {
   let rootFolder = path || './backend/'
   if (!rootFolder.endsWith('/')) {
     rootFolder += '/'
@@ -66,7 +66,7 @@ const createBackend = (
       return installDependencies(rootFolder, dependencies, devDependencies)
         .then(() => {
           console.timeEnd('Dependencies Installed In: '.green)
-          templates(rootFolder, dependencies, devDependencies, folders)
+          create_templates(rootFolder, dependencies, devDependencies, folders)
           return resolve(successMsg(rootFolder))
         })
         .catch((err) => reject(err))
@@ -74,4 +74,4 @@ const createBackend = (
   })
 }
 
-export default createBackend
+module.exports = create_backend

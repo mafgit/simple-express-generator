@@ -111,7 +111,7 @@ NPM: https://www.npmjs.com/package/simple-express-generator
   return str
 }
 
-export default {
+module.exports = {
   execAsync,
   logErr,
   logLoading,
