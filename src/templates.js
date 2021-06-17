@@ -64,6 +64,10 @@ router.get('/', (req, res) => {
 module.exports = router`
       writeFileSync(`${rootFolder}routes/index.js`, routesContent)
     }
+
+    writeFileSync(`${rootFolder}.gitignore`, '/node_modules\n*.env')
+    if (deps.includes('dotenv')) writeFileSync(`${rootFolder}.env`, '')
+
     // Writing to index.js
     writeFile(`${rootFolder}index.js`, requires + indexContent, (err) => {
       if (err) return reject(err)

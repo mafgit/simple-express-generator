@@ -14,9 +14,6 @@ const create_backend = ({
     rootFolder += '/'
   }
 
-  const filesToCreate = ['.gitignore']
-  if ([...dependencies, ...devDependencies].includes('dotenv'))
-    filesToCreate.push('.env')
   const defaultDependencies = [] // express is already there
   const defaultDevDependencies = ['dotenv', 'nodemon']
   const defaultFolders = ['models', 'controllers', 'routes', 'config']
@@ -49,15 +46,8 @@ const create_backend = ({
     if (files.length > 0) return reject('Root folder must be empty'.red)
 
     // Creating folders
-    logLoading('Creating Folders')
+    logLoading('Generating Folders')
     execSync(`cd ${rootFolder} && mkdir ${folders.join(' ')}`)
-
-    // Creating files
-    logLoading('Creating Files')
-    filesToCreate.forEach((file) => {
-      if (file === '.gitignore')
-        appendFileSync(`${rootFolder}${file}`, '/node_modules\n*.env')
-    })
 
     // Installing Dependencies
     logLoading('Installing Dependencies')
@@ -66,8 +56,12 @@ const create_backend = ({
       return installDependencies(rootFolder, dependencies, devDependencies)
         .then(() => {
           console.timeEnd('Dependencies Installed In: '.green)
+          logLoading('Generating files')
           create_templates(rootFolder, dependencies, devDependencies, folders)
-          return resolve(successMsg(rootFolder))
+            .then(() => {
+              return resolve(successMsg(rootFolder))
+            })
+            .catch((err) => reject(err))
         })
         .catch((err) => reject(err))
     })

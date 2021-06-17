@@ -4,5 +4,5 @@
 /src
 *.test.js
 *.spec.js
-.gitignore
 *.config.js
+.gitignore
