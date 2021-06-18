@@ -14,15 +14,10 @@ const execAsync = (command = '', cb = () => {}) =>
   })
 
 const installDependencies = (rootFolder, dependencies, devDependencies) => {
-  const promises = [
+  return Promise.all([
     execAsync(`cd ${rootFolder} && npm i ${dependencies.join(' ')}`),
-  ]
-  if (devDependencies.length > 0) {
-    promises.push(
-      execAsync(`cd ${rootFolder} && npm i ${devDependencies.join(' ')} -D`)
-    )
-  }
-  return Promise.all(promises)
+    execAsync(`cd ${rootFolder} && npm i ${devDependencies.join(' ')} -D`),
+  ])
 }
 
 const logErr = (msg) => {
