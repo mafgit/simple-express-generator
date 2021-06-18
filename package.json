@@ -4,7 +4,7 @@
   "version": "1.4.1",
   "main": "./dist/index.js",
   "bin": {
-    "simple-express-generator": "./main/index.js"
+    "simple-express-generator": "./dist/index.js"
   },
   "scripts": {
     "simple-express-generator": "simple-express-generator",
