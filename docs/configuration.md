@@ -38,11 +38,9 @@
 
 **Flag** `-d or --dependencies`
 
-**Default** `"express"`
+**Default** `""` _// Express is already there, it won't be overwritten by your arguments._
 
-**Example** `npx simple-express-generator -d "... mongoose jsonwebtoken"`
-
-**Note** Write `... ` in the beginning of the argument (be sure to give a space after three dots) to include the defaults in your argument, otherwise you will overwrite them.
+**Example** `npx simple-express-generator -d "mongoose jsonwebtoken"`
 
 ## Dev Dependencies
 

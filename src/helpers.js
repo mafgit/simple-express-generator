@@ -77,11 +77,11 @@ Flags:
     {
       short: 'd',
       long: 'dependencies',
-      defaults: '"express"',
-      example: 'npx simple-express-generator -d "... mongoose jsonwebtoken"',
+      defaults:
+        '"" // Express is already there, it would not be overwritten by your arguments.',
+      example: 'npx simple-express-generator -d "mongoose jsonwebtoken"',
       description:
         'Specify the dependencies that you want to install, in a single pair of double quotes.',
-      note: 'Write `... ` in the beginning of the argument (be sure to give a space after three dots) to include the defaults in your argument, otherwise you will overwrite them.',
     },
     {
       short: 'dd',
