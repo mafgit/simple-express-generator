@@ -1,7 +1,7 @@
-/node_modules
-/tests
-/docs
-/src
+/node_modules/
+/tests/
+/docs/
+/src/
 *.test.js
 *.spec.js
 *.config.js
