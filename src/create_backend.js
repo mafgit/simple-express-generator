@@ -1,4 +1,4 @@
-const { existsSync, mkdirSync, readdirSync, appendFileSync } = require('fs')
+const { existsSync, mkdirSync, readdirSync } = require('fs')
 const { logLoading, successMsg, installDependencies } = require('./helpers')
 const { exec, execSync } = require('child_process')
 const create_templates = require('./templates')
@@ -50,6 +50,7 @@ const create_backend = ({
       logLoading('Generating Folders')
       execSync(`cd ${rootFolder} && mkdir ${folders.join(' ')}`)
     }
+
     // Installing Dependencies
     logLoading('Installing Dependencies')
     console.time('Dependencies Installed In: '.green)

@@ -10,4 +10,5 @@ module.exports = {
   },
   mode: 'production',
   plugins: [new BannerPlugin({ banner: '#!/usr/bin/env node', raw: true })],
+  watch: true,
 }
