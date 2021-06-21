@@ -9,7 +9,7 @@
   "scripts": {
     "simple-express-generator": "simple-express-generator",
     "build": "webpack",
-    "build-push-publish": "npm run build && git push && npm publish",
+    "push-publish": "git push && npm publish",
     "docs": "docsify serve docs"
   },
   "repository": {
