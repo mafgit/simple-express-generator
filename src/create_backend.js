@@ -46,9 +46,10 @@ const create_backend = ({
     if (files.length > 0) return reject('Root folder must be empty'.red)
 
     // Creating folders
-    logLoading('Generating Folders')
-    execSync(`cd ${rootFolder} && mkdir ${folders.join(' ')}`)
-
+    if (folders.length > 0) {
+      logLoading('Generating Folders')
+      execSync(`cd ${rootFolder} && mkdir ${folders.join(' ')}`)
+    }
     // Installing Dependencies
     logLoading('Installing Dependencies')
     console.time('Dependencies Installed In: '.green)
