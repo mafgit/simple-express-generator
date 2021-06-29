@@ -1,5 +1,5 @@
 const { execSync } = require('child_process')
-const { writeFileSync, writeFile } = require('fs')
+const { writeFile, writeFileSync } = require('fs')
 
 const create_templates = (
   rootFolder,

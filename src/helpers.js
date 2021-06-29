@@ -1,4 +1,5 @@
 const { exec } = require('child_process')
+const lv = require('latest-version')
 require('colors')
 
 const filterArrArg = (arg) =>
@@ -16,36 +17,25 @@ const execAsync = (command = '', cb = () => {}) =>
     })
   })
 
-const installDependencies = (rootFolder, dependencies, devDependencies) => {
-  const promises = []
-  if (dependencies.length > 0)
-    promises.push(
-      execAsync(`cd ${rootFolder} && npm i ${dependencies.join(' ')} --save`)
+const addDependencies = (pkgjson, depsObj, cb) => {
+  let totalDeps = 0
+  let depsAdded = 0
+  Object.values(depsObj).forEach((d) => {
+    totalDeps += d.length
+  })
+  Object.keys(depsObj).forEach((depsKey) => {
+    if (!pkgjson[depsKey]) pkgjson[depsKey] = {}
+    depsObj[depsKey].forEach((dep, i) =>
+      lv(dep)
+        .then((v) => {
+          pkgjson[depsKey][dep] = `^${v}`
+          if (++depsAdded >= totalDeps) return cb(null, pkgjson)
+        })
+        .catch((err) => {
+          return cb(err)
+        })
     )
-  if (devDependencies.length > 0)
-    promises.push(
-      execAsync(
-        `cd ${rootFolder} && npm i ${devDependencies.join(' ')} --save-dev`
-      )
-    )
-  return Promise.all(promises)
-
-  // return new Promise((resolve, reject) => {
-  //   exec(
-  //     `cd ${rootFolder} && npm i ${dependencies.join(' ')}`,
-  //     (err, stdout1) => {
-  //       if (err) return reject(err, stdout1)
-  //       exec(
-  //         `cd ${rootFolder} && npm i ${devDependencies.join(' ')} -D`,
-  //         (err, stdout2) => {
-  //           if (err) return reject(err, stdout2)
-  //           return resolve(stdout1 + '\n' + stdout2)
-  //         }
-  //       )
-  //     }
-  //   )
-  // })
-  // --------------------
+  })
 }
 
 const logErr = (msg) => {
@@ -57,14 +47,14 @@ const logLoading = (msg) => {
 }
 
 const successMsg = (rootFolder) => {
-  const strSuccess = `Success!`.green
-  const str2 = `Your backend setup is complete`
-  const str3 = `Run the following command:`
+  const strSuccess = `Success! Your backend setup is complete.`.green
+  const str1 = `Run the following commands to get started:`
+  const str2 = `npm i`.blue
+  const str3 = `node .`.blue
   let pathStr = !['./', '.', '/'].includes(rootFolder)
-    ? `cd ${rootFolder} && `.blue
+    ? `cd ${rootFolder}\n\n`.blue
     : ''
-  const strCommands = pathStr + `node index.js`.blue
-  return `\n\n${strSuccess}\n\n${str2}\n\n${str3}\n\n${strCommands}\n\n`
+  return `\n\n${strSuccess}\n\n${str1}\n\n${pathStr}${str2}\n\n${str3}\n\n`
 }
 
 const generateHelpMessage = () => {
@@ -109,7 +99,7 @@ Flags:
     {
       short: 'dd',
       long: 'devDependencies',
-      defaults: '"nodemon dotenv"',
+      defaults: '"nodemon"',
       example: 'npx simple-express-generator -dd "... jest"',
       description:
         'Specify the developer dependencies that you want to install, in a single pair of double quotes.',
@@ -140,6 +130,6 @@ module.exports = {
   logLoading,
   successMsg,
   helpMessage: generateHelpMessage(),
-  installDependencies,
+  addDependencies,
   filterArrArg,
 }

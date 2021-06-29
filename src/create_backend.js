@@ -1,5 +1,11 @@
-const { existsSync, mkdirSync, readdirSync } = require('fs')
-const { logLoading, successMsg, installDependencies } = require('./helpers')
+const {
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+} = require('fs')
+const { logLoading, successMsg, addDependencies } = require('./helpers')
 const { exec, execSync } = require('child_process')
 const create_templates = require('./templates')
 
@@ -52,22 +58,27 @@ const create_backend = ({
     }
 
     // Installing Dependencies
-    logLoading('Installing Dependencies')
-    console.time('Dependencies Installed In: '.green)
+    logLoading('Generating package.json')
     exec(`cd ${rootFolder} && npm init -y`, (err) => {
       if (err) return reject(err)
-      return installDependencies(rootFolder, dependencies, devDependencies)
-        .then((result) => {
-          console.log(result)
-          console.timeEnd('Dependencies Installed In: '.green)
+      const pkgjson = JSON.parse(readFileSync(`${rootFolder}package.json`))
+      return addDependencies(
+        pkgjson,
+        { dependencies, devDependencies },
+        (err, new_pkgjson) => {
+          if (err) return reject(err)
+          writeFileSync(
+            `${rootFolder}package.json`,
+            JSON.stringify(new_pkgjson)
+          )
           logLoading('Generating files')
           create_templates(rootFolder, dependencies, devDependencies, folders)
             .then(() => {
               return resolve(successMsg(rootFolder))
             })
             .catch((err) => reject(err))
-        })
-        .catch((err) => reject(err))
+        }
+      )
     })
   })
 }
