@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('colors')
 const { logErr, helpMessage, filterArrArg } = require('./helpers')
 const create_backend = require('./create_backend')
