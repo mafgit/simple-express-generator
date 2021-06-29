@@ -1,12 +1,15 @@
 const { exec } = require('child_process')
 require('colors')
 
+const filterArrArg = (arg) =>
+  arg.trim() ? [...new Set(arg.trim().split(' '))] : []
+
 const execAsync = (command = '', cb = () => {}) =>
   new Promise((resolve, reject) => {
     exec(command, (err, stdout) => {
       if (err) {
         reject(err)
-        return cb(err, null)
+        return cb(err)
       }
       resolve(stdout)
       return cb(null, stdout)
@@ -14,10 +17,35 @@ const execAsync = (command = '', cb = () => {}) =>
   })
 
 const installDependencies = (rootFolder, dependencies, devDependencies) => {
-  return Promise.all([
-    execAsync(`cd ${rootFolder} && npm i ${dependencies.join(' ')}`),
-    execAsync(`cd ${rootFolder} && npm i ${devDependencies.join(' ')} -D`),
-  ])
+  const promises = []
+  if (dependencies.length > 0)
+    promises.push(
+      execAsync(`cd ${rootFolder} && npm i ${dependencies.join(' ')} --save`)
+    )
+  if (devDependencies.length > 0)
+    promises.push(
+      execAsync(
+        `cd ${rootFolder} && npm i ${devDependencies.join(' ')} --save-dev`
+      )
+    )
+  return Promise.all(promises)
+
+  // return new Promise((resolve, reject) => {
+  //   exec(
+  //     `cd ${rootFolder} && npm i ${dependencies.join(' ')}`,
+  //     (err, stdout1) => {
+  //       if (err) return reject(err, stdout1)
+  //       exec(
+  //         `cd ${rootFolder} && npm i ${devDependencies.join(' ')} -D`,
+  //         (err, stdout2) => {
+  //           if (err) return reject(err, stdout2)
+  //           return resolve(stdout1 + '\n' + stdout2)
+  //         }
+  //       )
+  //     }
+  //   )
+  // })
+  // --------------------
 }
 
 const logErr = (msg) => {
@@ -113,4 +141,5 @@ module.exports = {
   successMsg,
   helpMessage: generateHelpMessage(),
   installDependencies,
+  filterArrArg,
 }

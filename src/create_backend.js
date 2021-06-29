@@ -38,7 +38,7 @@ const create_backend = ({
       ...devDependencies.filter((i) => i !== '...'),
     ]
 
-  dependencies.push('express') // this default can't be overwritten
+  if (!dependencies.includes('express')) dependencies.push('express') // this default can't be overwritten
 
   return new Promise((resolve, reject) => {
     // Checking whether its empty
@@ -54,9 +54,11 @@ const create_backend = ({
     // Installing Dependencies
     logLoading('Installing Dependencies')
     console.time('Dependencies Installed In: '.green)
-    exec(`cd ${rootFolder} && npm init -y`, () => {
+    exec(`cd ${rootFolder} && npm init -y`, (err) => {
+      if (err) return reject(err)
       return installDependencies(rootFolder, dependencies, devDependencies)
-        .then(() => {
+        .then((result) => {
+          console.log(result)
           console.timeEnd('Dependencies Installed In: '.green)
           logLoading('Generating files')
           create_templates(rootFolder, dependencies, devDependencies, folders)
