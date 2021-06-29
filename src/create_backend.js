@@ -21,7 +21,7 @@ const create_backend = ({
   }
 
   const defaultDependencies = [] // express is already there
-  const defaultDevDependencies = ['dotenv', 'nodemon']
+  const defaultDevDependencies = ['nodemon']
   const defaultFolders = ['models', 'controllers', 'routes', 'config']
 
   logLoading('Processing')
