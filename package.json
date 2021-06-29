@@ -2,13 +2,12 @@
   "name": "simple-express-generator",
   "description": "A simple express server generator.",
   "version": "1.5.2",
-  "main": "./dist/index.js",
+  "main": "./src/index.js",
   "bin": {
-    "simple-express-generator": "./dist/index.js"
+    "simple-express-generator": "./src/index.js"
   },
   "scripts": {
     "simple-express-generator": "simple-express-generator",
-    "build": "npx webpack",
     "push-publish": "git push && npm publish",
     "docs": "docsify serve docs"
   },
@@ -37,10 +36,5 @@
   "dependencies": {
     "colors": "^1.4.0",
     "latest-version": "^5.1.0"
-  },
-  "devDependencies": {
-    "terser-webpack-plugin": "^5.1.4",
-    "webpack": "^5.39.0",
-    "webpack-cli": "^4.7.2"
   }
 }
