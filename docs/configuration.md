@@ -48,7 +48,7 @@
 
 **Flag** `-dd or --devDependencies`
 
-**Default** `"nodemon dotenv"`
+**Default** `"nodemon"`
 
 **Example** `npx simple-express-generator -dd "... jest"`
 

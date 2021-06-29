@@ -1,5 +1,5 @@
-const { logErr, helpMessage } = require('./helpers')
 require('colors')
+const { logErr, helpMessage, filterArrArg } = require('./helpers')
 const create_backend = require('./create_backend')
 
 const args_obj = {}
@@ -15,11 +15,11 @@ for (let i = 0; i < args.length; i += 2) {
     run = false
   } else if (flag === '-p' || flag === '--path') args_obj.path = arg
   else if (flag === '-d' || flag === '--dependencies') {
-    args_obj.dependencies = arg.trim() ? arg.trim().split(' ') : []
+    args_obj.dependencies = filterArrArg(arg)
   } else if (flag === '-dd' || flag === '--devDependencies') {
-    args_obj.devDependencies = arg.trim() ? arg.trim().split(' ') : []
+    args_obj.devDependencies = filterArrArg(arg)
   } else if (flag === '-f' || flag === '--folders') {
-    args_obj.folders = arg.trim() ? arg.trim().split(' ') : []
+    args_obj.folders = filterArrArg(arg)
   }
 }
 

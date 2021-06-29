@@ -35,7 +35,8 @@
     "email": "abdskinny@gmail.com"
   },
   "dependencies": {
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "latest-version": "^5.1.0"
   },
   "devDependencies": {
     "webpack": "^5.39.0",
