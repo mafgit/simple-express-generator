@@ -19,7 +19,7 @@ _🔥 Generates an express server with just one command 🔥_
 
 ## Links
 
-[📘 Docs](https://mafgit.github.io/simple-express-generator/)
+[🚀 Get Started](get-started.md)
 
 [🖤 Github](https://github.com/mafgit/simple-express-generator)
 
