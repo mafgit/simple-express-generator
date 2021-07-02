@@ -6,7 +6,7 @@ const create_backend = require('./create_backend')
 
 const args_obj = {}
 
-const args = process.argv
+const args = process.argv.slice(2)
 let run = true
 
 for (let i = 0; i < args.length; i += 2) {

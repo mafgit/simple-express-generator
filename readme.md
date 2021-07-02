@@ -15,7 +15,7 @@ _🔥 Generates an express server with just one command 🔥_
 
 🚀 Simple, lightweight & Fast
 
-📁 Generate folders and install dependencies with just one command
+📁 Generate folders and specify dependencies using just one command
 
 ⚙️ Allows configuration
 
