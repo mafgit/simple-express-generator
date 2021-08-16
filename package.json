@@ -1,7 +1,7 @@
 {
   "name": "simple-express-generator",
   "description": "A simple express server generator.",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "main": "./src/index.js",
   "bin": {
     "simple-express-generator": "./src/index.js"
