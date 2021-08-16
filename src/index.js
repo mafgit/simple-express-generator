@@ -9,6 +9,13 @@ const program = new Program({
   name: 'simple-express-generator',
   description: 'A simple CLI tool to generate basic express boilerplate.',
   version: '1.6.0',
+  links: [
+    {
+      name: 'Docs',
+      value: 'https://mafgit.github.io/simple-express-generator/#/',
+    },
+    { name: 'Github', value: 'https://github.com/mafgit' },
+  ],
 })
 
 const models = [
@@ -28,21 +35,21 @@ const models = [
     short: 'd',
     long: 'dependencies',
     type: 'string[]',
-    default: [],
+    default: '[]',
     description: 'Dependencies for your express app, separated by spaces.',
   },
   {
     short: 'dd',
     long: 'devDependencies',
     type: 'string[]',
-    default: ['nodemon'],
+    default: "['nodemon']",
     description: 'Dev dependencies for your express app, separated by spaces.',
   },
   {
     short: 'f',
     long: 'folders',
     type: 'string[]',
-    default: ['models', 'controllers', 'routes', 'config'],
+    default: "['models', 'controllers', 'routes', 'config']",
     description:
       'Folders to be created in your express app, separated by spaces.',
   },
