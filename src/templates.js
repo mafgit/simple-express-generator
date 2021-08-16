@@ -1,6 +1,16 @@
 const { execSync } = require('child_process')
 const { writeFile, writeFileSync } = require('fs')
 
+const camelCase = (str) => {
+  let newStr = ''
+  let arr = str.split('-')
+  arr.forEach((word) => {
+    if (newStr.length === 0) newStr += word.toLowerCase()
+    else newStr += word[0].toUpperCase() + word.slice(1).toLowerCase()
+  })
+  return newStr
+}
+
 const create_templates = (
   rootFolder,
   dependencies,
@@ -8,14 +18,14 @@ const create_templates = (
   folders
 ) => {
   return new Promise((resolve, reject) => {
-    const deps = [...dependencies, ...devDependencies]
-
+    const deps = [...new Set([...dependencies, ...devDependencies])]
     // Requires
     let requires = ``
+    deps.forEach((i) => {
+      requires += `const ${camelCase(i)} = require('${i}')\n`
+    })
 
-    requires += `const express = require('express')\n`
-    if (deps.includes('dotenv')) requires += `require('dotenv').config()\n`
-    // TODO: Camelcase, add dependencies' require statements from forEach
+    if (deps.includes('dotenv')) requires += '\ndotenv.config()\n'
     if (deps.includes('mongoose'))
       requires += `const db_connection = require('./config/db_connection')\n`
 
@@ -26,7 +36,6 @@ const create_templates = (
       folders.includes('routes') ? "app.use(require('./routes/'))\n" : ''
     }`
     if (deps.includes('mongoose')) {
-      // TODO: check mongo default uri
       indexContent += `
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/'
 db_connection(MONGO_URI)

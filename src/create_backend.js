@@ -10,10 +10,11 @@ const { exec, execSync } = require('child_process')
 const create_templates = require('./templates')
 
 const create_backend = ({
-  path = './backend/',
-  dependencies = [], // express is already there
-  devDependencies = ['nodemon'],
-  folders = ['models', 'controllers', 'routes', 'config'],
+  path,
+  dependencies, // express is already there
+  devDependencies,
+  folders,
+  nogit,
 }) => {
   let rootFolder = path || './backend/'
   if (!rootFolder.endsWith('/')) {
@@ -49,7 +50,7 @@ const create_backend = ({
   return new Promise((resolve, reject) => {
     // Checking whether its empty
     const files = readdirSync(rootFolder)
-    if (files.length > 0) return reject('Root folder must be empty'.red)
+    if (files.length > 0) return reject('Root folder must be empty')
 
     // Creating folders
     if (folders.length > 0) {
@@ -59,27 +60,30 @@ const create_backend = ({
 
     // Installing Dependencies
     logLoading('Generating package.json')
-    exec(`cd ${rootFolder} && npm init -y`, (err) => {
-      if (err) return reject(err)
-      const pkgjson = JSON.parse(readFileSync(`${rootFolder}package.json`))
-      return addDependencies(
-        pkgjson,
-        { dependencies, devDependencies },
-        (err, new_pkgjson) => {
-          if (err) return reject(err)
-          writeFileSync(
-            `${rootFolder}package.json`,
-            JSON.stringify(new_pkgjson)
-          )
-          logLoading('Generating files')
-          create_templates(rootFolder, dependencies, devDependencies, folders)
-            .then(() => {
-              return resolve(successMsg(rootFolder))
-            })
-            .catch((err) => reject(err))
-        }
-      )
-    })
+    exec(
+      `cd ${rootFolder} && npm init -y${!nogit ? ' && git init' : ''}`,
+      (err) => {
+        if (err) return reject(err)
+        const pkgjson = JSON.parse(readFileSync(`${rootFolder}package.json`))
+        return addDependencies(
+          pkgjson,
+          { dependencies, devDependencies },
+          (err, new_pkgjson) => {
+            if (err) return reject(err)
+            writeFileSync(
+              `${rootFolder}package.json`,
+              JSON.stringify(new_pkgjson)
+            )
+            logLoading('Generating files')
+            create_templates(rootFolder, dependencies, devDependencies, folders)
+              .then(() => {
+                return resolve(successMsg(rootFolder))
+              })
+              .catch((err) => reject(err))
+          }
+        )
+      }
+    )
   })
 }
 

@@ -10,8 +10,6 @@
 
 - `simple-express-generator`
 
-<!-- TODO: Insert pic of folder structure -->
-
 ---
 
 For configuration, check [Configuration](configuration.md)

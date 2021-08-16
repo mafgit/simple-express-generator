@@ -1,33 +1,77 @@
 #!/usr/bin/env node
 
 require('colors')
-const { logErr, helpMessage, filterArrArg } = require('./helpers')
 const create_backend = require('./create_backend')
+const { logErr } = require('./helpers')
 
-const args_obj = {}
+const Program = require('simple-node-args')
+const program = new Program({
+  name: 'simple-express-generator',
+  description: 'A simple CLI tool to generate basic express boilerplate.',
+  version: '1.6.0',
+})
 
-const args = process.argv.slice(2)
-let run = true
+const models = [
+  {
+    short: 'h',
+    long: 'help',
+    help_flag: true,
+    description: 'Shows this help message.',
+  },
+  {
+    short: 'p',
+    long: 'path',
+    default: './backend/',
+    description: 'Path to the folder where you want the setup to take place.',
+  },
+  {
+    short: 'd',
+    long: 'dependencies',
+    type: 'string[]',
+    default: [],
+    description: 'Dependencies for your express app, separated by spaces.',
+  },
+  {
+    short: 'dd',
+    long: 'devDependencies',
+    type: 'string[]',
+    default: ['nodemon'],
+    description: 'Dev dependencies for your express app, separated by spaces.',
+  },
+  {
+    short: 'f',
+    long: 'folders',
+    type: 'string[]',
+    default: ['models', 'controllers', 'routes', 'config'],
+    description:
+      'Folders to be created in your express app, separated by spaces.',
+  },
+  {
+    long: 'nogit',
+    will_have_value: false,
+    default: false,
+    description: 'Pass this if you do not want to initialize git.',
+  },
+]
 
-for (let i = 0; i < args.length; i += 2) {
-  const flag = args[i]
-  const arg = args[i + 1]
-  if (flag === '-h' || flag === '--help') {
-    console.log(helpMessage)
-    run = false
-  } else if (flag === '-p' || flag === '--path') args_obj.path = arg
-  else if (flag === '-d' || flag === '--dependencies') {
-    args_obj.dependencies = filterArrArg(arg)
-  } else if (flag === '-dd' || flag === '--devDependencies') {
-    args_obj.devDependencies = filterArrArg(arg)
-  } else if (flag === '-f' || flag === '--folders') {
-    args_obj.folders = filterArrArg(arg)
-  }
+program.on_error = (err) => {
+  logErr(err)
+  process.exit(1)
 }
+program.parse(process.argv, models)
 
-if (run === true) {
+const { args } = program
+
+if (!args.help) {
+  const { path, dependencies, devDependencies, folders, nogit } = args
   console.time('Simple Express App Generated In: '.green)
-  create_backend(args_obj)
+  create_backend({
+    path,
+    dependencies: dependencies.filter((i) => i !== ''),
+    devDependencies: devDependencies.filter((i) => i !== ''),
+    folders: folders.filter((i) => i !== ''),
+    nogit,
+  })
     .then((res) => {
       console.log(res)
       console.timeEnd('Simple Express App Generated In: '.green)

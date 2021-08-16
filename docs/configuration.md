@@ -2,7 +2,7 @@
 
 ## Path
 
-> Specify the path where you want the setup to take place.
+> Path to the folder where you want the setup to take place.
 
 **Flag** `-p or --path`
 
@@ -14,7 +14,7 @@
 
 ## Help
 
-> See the list of available commands
+> Shows the help message.
 
 **Flag** `-h or --help`
 
@@ -28,28 +28,40 @@
 
 **Default** `"models controllers routes config"`
 
-**Example** `npx simple-express-generator -f "... tests"`
+**Example** `npx simple-express-generator -f ... tests public`
 
-**Note** Write `... ` in the beginning of the argument (be sure to give a space after three dots) to include the defaults in your argument, otherwise you will overwrite them.
+**Note** The value for this flag must be an array, so separate each item with a space. Pass `... ` as well if you want to include the defaults and not overwrite them.
 
 ## Dependencies
 
-> Specify the dependencies that you want to install, in a single pair of double quotes.
+> Specify the dependencies that you want to install, each separated by a space.
 
 **Flag** `-d or --dependencies`
 
 **Default** `""` _// Express is already there, it won't be overwritten by your arguments._
 
-**Example** `npx simple-express-generator -d "mongoose jsonwebtoken"`
+**Example** `npx simple-express-generator -d mongoose jsonwebtoken`
+
+**Note** The value for this flag must be an array, so separate each item with a space. Pass `... ` as well if you want to include the defaults and not overwrite them.
 
 ## Dev Dependencies
 
-> Specify the dev dependencies that you want to install, in a single pair of double quotes.
+> Specify the dev dependencies that you want to install, each separated by a space.
 
 **Flag** `-dd or --devDependencies`
 
 **Default** `"nodemon"`
 
-**Example** `npx simple-express-generator -dd "... jest"`
+**Example** `npx simple-express-generator -dd ... jest`
 
-**Note** Write `... ` in the beginning of the argument (be sure to give a space after three dots) to include the defaults in your argument, otherwise you will overwrite them.
+**Note** The value for this flag must be an array, so separate each item with a space. Pass `... ` as well if you want to include the defaults and not overwrite them.
+
+## No Git
+
+> Specify this flag is you don't want git to be initialized
+
+**Flag** `--nogit`
+
+**Default** `false`
+
+**Example** `npx simple-express-generator --nogit`
