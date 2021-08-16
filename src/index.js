@@ -8,7 +8,7 @@ const Program = require('simple-node-args')
 const program = new Program({
   name: 'simple-express-generator',
   description: 'A simple CLI tool to generate basic express boilerplate.',
-  version: '1.7.0',
+  version: '1.7.1',
   links: [
     {
       name: 'Docs',
